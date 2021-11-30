@@ -189,7 +189,7 @@ async function loadTexture(fileName) {
     function draw(timestamp) {
         requestAnimationFrame(draw);
         previousTime = time;
-        time = timestamp / 1000;
+        time = timestamp / 1000 ;
         if (!document.hasFocus()) return;
 
         let cameraPosition = vec3.fromValues(0, 0, 9);
