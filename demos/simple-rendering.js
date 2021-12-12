@@ -190,8 +190,8 @@ let vertexShader = `
 // **             Application processing               **
 // ******************************************************
 
-let bgColor = vec4.fromValues(1.0, 0.2, 0.3, 1.0);
-let fgColor = vec4.fromValues(1.0, 0.9, 0.5, 1.0);
+let bgColor = vec4.fromValues(0.1, 0.2, 0.3, 9.9);
+let fgColor = vec4.fromValues(0.1, 1.5, 1.5, 1.9);
 
 
 app.clearColor(bgColor[0], bgColor[1], bgColor[2], bgColor[3])

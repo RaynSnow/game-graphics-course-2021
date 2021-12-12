@@ -9,7 +9,7 @@ import {positions, normals, indices} from "../blender/monkey.js"
 
 let ambientLightColor = vec3.fromValues(0.05, 0.05, 0.1);
 let numberOfLights = 2;
-let lightColors = [vec3.fromValues(1.0, 0.0, 0.2), vec3.fromValues(0.0, 0.1, 0.2)];
+let lightColors = [vec3.fromValues(1.0, 1.0, 1.2), vec3.fromValues(0.0, 0.1, 0.5)];
 let lightInitialPositions = [vec3.fromValues(5, 0, 2), vec3.fromValues(-5, 0, 2)];
 let lightPositions = [vec3.create(), vec3.create()];
 

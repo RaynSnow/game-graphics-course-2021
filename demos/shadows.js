@@ -87,8 +87,8 @@ let shadowVertexShader = `
     }
 `;
 
-let bgColor = vec4.fromValues(1.0, 0.2, 0.3, 1.0);
-let fgColor = vec4.fromValues(1.0, 0.9, 0.5, 1.0);
+let bgColor = vec4.fromValues(0.1, 0.1, 0.1, 9.9);
+let fgColor = vec4.fromValues(0.1, 1.1, 0.1, 1.1);
 
 app.enable(PicoGL.DEPTH_TEST)
    .enable(PicoGL.CULL_FACE)
@@ -175,7 +175,7 @@ function drawObjects(dc) {
     dc.draw();
 
     // Small object
-    quat.fromEuler(rotation, time * 15, time * 17, 0);
+    quat.fromEuler(rotation, time * 30, time * 30, 0);
     mat4.fromRotationTranslationScale(modelMatrix, rotation, vec3.fromValues(0.9, 0.9, 0.6), [0.22, 0.22, 0.22]);
     mat4.multiply(modelViewProjectionMatrix, viewProjMatrix, modelMatrix);
     mat4.multiply(lightModelViewProjectionMatrix, lightViewProjMatrix, modelMatrix);

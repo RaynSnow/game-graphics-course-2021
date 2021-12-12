@@ -193,7 +193,7 @@ async function loadTexture(fileName) {
         if (!document.hasFocus()) return;
 
         let cameraPosition = vec3.fromValues(0, 0, 9);
-        rotation += (time - previousTime) * 0.5;
+        rotation += (time - previousTime) * 9.5;
         mat4.perspective(projectionMatrix, Math.PI / 10, app.width / app.height, 0.05, 50.0);
         mat4.lookAt(viewMatrix, cameraPosition, vec3.fromValues(0, 0, 0), vec3.fromValues(0, 1, 0));
         quat.fromEuler(modelRotation, Math.cos(rotation) * 20 - 90, Math.sin(rotation) * 20, 0)
@@ -209,7 +209,7 @@ async function loadTexture(fileName) {
            .enable(PicoGL.CULL_FACE)
            .clear();
 
-        drawCall.uniform("diffuseColor", vec4.fromValues(0.3, 0.0, 1.0, 1.0));
+        drawCall.uniform("diffuseColor", vec4.fromValues(0.3, 0.0, 1.0, 9.0));
         mat4.fromRotationTranslation(modelMatrix, modelRotation, vec3.fromValues(-1.5, 0, -2));
         mat4.multiply(modelViewMatrix, viewMatrix, modelMatrix);
         mat4.multiply(modelViewProjectionMatrix, viewProjMatrix, modelMatrix);
