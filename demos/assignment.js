@@ -137,8 +137,8 @@ let postFragmentShader = `
         float n = 0.0;
         for (float u = -1.0; u <= 1.0; u += 0.4)    
             for (float v = -1.0; v <= 1.0; v += 0.4) {
-                float factor = abs(depth - 0.995) * 150.0;
-                blur += texture(tex, uv + vec2(u, v) * factor * 0.002);
+                float factor = abs(depth - 0.999) * 150.0;
+                blur += texture(tex, uv + vec2(u, v) * factor * 0.018);
                 n += 0.1;
             }                
         return blur / n;
@@ -174,13 +174,13 @@ let postFragmentShader = `
         col = depthOfField(col, depth, v_position.xy);
 
         // Noise         
-        col.rgb += (2.0 - col.rgb) * random(v_position.xy) * 0.1;
+        col.rgb += (2.0 - col.rgb) * random(v_position.xy) * 0.3;
         
         // Contrast + Brightness
-        col = pow(col, vec4(1.8)) * 0.8;
+        col = pow(col, vec4(1.8)) * 0.4;
         
         // Color curves
-        col.rgb = col.rgb * vec3(1.2, 1.1, 1.0) + vec3(0.0, 0.05, 0.2);
+        col.rgb = col.rgb * vec3(1.2, 1.1, 1.0) + vec3(0.0, 0.01, 0.1);
         
         // Ambient Occlusion
         //col = ambientOcclusion(col, depth, v_position.xy);                
@@ -189,7 +189,7 @@ let postFragmentShader = `
         //col.rgb = 1.0 - col.rgb;
         
         // Fog
-        //col.rgb = col.rgb + vec3((depth - 0.992) * 200.0);         
+        //col.rgb = col.rgb + vec3((depth - 0.50) * 200.0);         
                         
         outColor = col;
     }
@@ -269,7 +269,7 @@ async function loadTexture(fileName) {
 
     let startTime = new Date().getTime() / 1000;
 
-    let cameraPosition = vec3.fromValues(40, 0, 0);
+    let cameraPosition = vec3.fromValues(50, 0, 0);
 
     const positionsBuffer = new Float32Array(numberOfLights * 3);
     const colorsBuffer = new Float32Array(numberOfLights * 3);
@@ -277,7 +277,7 @@ async function loadTexture(fileName) {
     function draw() {
         let time = new Date().getTime() / 1000 - startTime;
 
-        mat4.fromRotationTranslation(modelMatrix, quat.fromEuler(quat.create(), -90, time * 20, 0), vec3.fromValues(0, -0.2, 0));
+        mat4.fromRotationTranslation(modelMatrix, quat.fromEuler(quat.create(), -60, time * 10, 0), vec3.fromValues(0, -0.2, 0));
 
         mat4.perspective(projectionMatrix, Math.PI / 6, app.width / app.height, 0.1, 100.0);
         mat4.lookAt(viewMatrix, cameraPosition, vec3.fromValues(0, 0, 0), vec3.fromValues(0, 1, 0));
@@ -295,9 +295,9 @@ async function loadTexture(fileName) {
         drawCall.uniform("cameraPosition", cameraPosition);
 
         for (let i = 0; i < numberOfLights; i++) {
-            vec3.rotateZ(lightPositions[i], lightInitialPositions[i], vec3.fromValues(5, 1, 1), time * 1);
-            positionsBuffer.set(lightPositions[i], i * 3);
-            colorsBuffer.set(lightColors[i], i * 3);
+            vec3.rotateZ(lightPositions[i], lightInitialPositions[i], vec3.fromValues(4, 1, 1), time * 1);
+            positionsBuffer.set(lightPositions[i], i * 1);
+            colorsBuffer.set(lightColors[i], i * 0);
         }
 
         drawCall.uniform("lightPositions[0]", positionsBuffer);
